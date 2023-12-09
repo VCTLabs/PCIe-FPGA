@@ -2,6 +2,8 @@
  * SPDX-FileCopyrightText: Copyright 2014 Raytheon BBN Technologies. All rights reserved.
  * SPDX-License-Identifier: MIT
  *
+ * Author: Colm Ryan <cryan@bbn.com>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
@@ -33,12 +35,12 @@
 #define VENDOR_ID 0x1172
 #define DEVICE_ID 0xbb4e
 
-#define DRIVER_NAME "bbn_fpga"
-#define BOARD_NAME "piecomm1"
-#define NUM_BARS 3  //we use up to BAR2
+#define DRIVER_NAME "pcie_fpga"
+#define BOARD_NAME "pciecomm1"
+#define NUM_BARS 3  // BARS defined in upstream pcie driver
 
 
-//fileio.c functions for device
+// fileio.c functions for device
 int fpga_open(struct inode *inode, struct file *file);
 int fpga_close(struct inode *inode, struct file *file);
 ssize_t fpga_read(struct file *file, char __user *buf, size_t count, loff_t *pos);
