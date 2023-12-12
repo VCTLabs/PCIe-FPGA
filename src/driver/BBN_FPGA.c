@@ -37,9 +37,11 @@ static void remove(struct pci_dev *dev);
 // static int  init_chrdev (struct aclpci_dev *aclpci);
 
 
-//Fill in kernel structures with a list of ids this driver can handle
+// Fill in kernel structures with a list of ids this driver can handle
 static struct pci_device_id idTable[] = {
-	{ PCI_DEVICE(VENDOR_ID, DEVICE_ID) },
+	{ PCI_DEVICE(VENDOR_ID_IIGX, DEVICE_ID_IIGX) },
+	{ PCI_DEVICE(VENDOR_ID_40GE, DEVICE_ID_40GE) },
+	{ PCI_DEVICE(VENDOR_ID_BIST, DEVICE_ID_BIST) },
 	{ 0, },
 };
 MODULE_DEVICE_TABLE(pci, idTable);
@@ -60,12 +62,12 @@ struct file_operations fileOps = {
 };
 
 
-/*I/0 - should move to separate file at some point */
+/* I/0 - should move to separate file at some point */
 struct IOCmd_t {
-	uint32_t cmd; //command word
-	uint8_t barNum; //which bar we are read/writing to
-	uint32_t devAddr; // address relative to BAR that we are read/writing to
-	void * userAddr; // virtual address in user space to read/write from
+	uint32_t cmd;  // command word
+	uint8_t barNum;  // which bar we are read/writing to
+	uint32_t devAddr;  // address relative to BAR that we are read/writing to
+	void * userAddr;  // virtual address in user space to read/write from
 };
 
 ssize_t rw_dispatcher(struct file *filePtr, char __user *buf, size_t count, bool rwFlag){
@@ -273,7 +275,6 @@ static int probe(struct pci_dev *dev, const struct pci_device_id *id) {
 		printk(KERN_INFO "[pcie_fpga] vendor = 0x%x, device = 0x%x \n", dev->vendor, dev->device);
 
 		// Allocate and zero memory for devInfo
-
 		devInfo = kzalloc(sizeof(struct DevInfo_t), GFP_KERNEL);
 		if (!devInfo) {
 			printk(KERN_WARNING "Couldn't allocate memory for device info!\n");

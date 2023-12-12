@@ -32,8 +32,14 @@
 #include <linux/sched.h>
 
 
-#define VENDOR_ID 0x1172
-#define DEVICE_ID 0xbb4e
+#define VENDOR_ID_IIGX 0x1172
+#define DEVICE_ID_IIGX 0xbb4e
+
+#define VENDOR_ID_40GE 0x198a
+#define DEVICE_ID_40GE 0x0100
+
+#define VENDOR_ID_BIST 0x198a
+#define DEVICE_ID_BIST 0x385f
 
 #define DRIVER_NAME "pcie_fpga"
 #define BOARD_NAME "pciecomm1"
